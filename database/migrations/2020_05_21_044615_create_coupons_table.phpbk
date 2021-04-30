@@ -1,0 +1,45 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateCouponsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('coupons', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->string('coupon')->index();
+            $table->enum('coupon_type',[1,2])->default(1)->index();
+            $table->unsignedBigInteger('credits');
+            $table->unsignedInteger('quantity');
+            $table->unsignedBigInteger('user_phone')->nullable()->index();
+            $table->date('valid_from');
+            $table->date('valid_to');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('coupons');
+    }
+}
+
+
+// coupon types
+// 1 Promotional
+// 2 user specific
