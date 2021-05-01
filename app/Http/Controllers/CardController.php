@@ -28,7 +28,7 @@ class CardController extends Controller
 {
     public function card($slug)
     {
-        $my_card = Card::where('slug', $slug)->firstorfail();
+        $my_card = Card::where('slug', $slug)->where('status', 1)->firstorfail();
 
         $card_addresses = CardAddress::where('card_id', $my_card->id)->get();
 
